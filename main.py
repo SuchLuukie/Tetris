@@ -1,15 +1,20 @@
-import pygame 
+import pygame
+import pprint
 from shapes import Shapes
 
-resolution = [500, 1000]
-pixel_size = 50
+pixel_size = 40
+resolution = [pixel_size * 10, pixel_size * 20]
 
 screen = pygame.display.set_mode(resolution)
-colour_dictionary = {0: (255, 255, 255)}
+colour_dictionary = {0: (0, 0, 0), 1: (255, 255, 255)}
 
 def display():
 	running = True
 	while running:
+		draw_board()
+		pygame.display.flip()
+
+		# Key inputs
 		for event in pygame.event.get():
 				if event.type == pygame.QUIT:
 					running = False
@@ -22,15 +27,16 @@ def display():
 
 					# Add rotation here later
 
-		draw_board()
-
 
 
 def draw_board():
-		for i in range(10):
-			for j in range(20):
-				location = (i * pixel_size, j * pixel_size, pixel_size, pixel_size)
-				pygame.draw.rect(screen, colour_dictionary[board[i][j]], location)
+	width = resolution[0] / pixel_size
+	height = resolution[1] / pixel_size
+	for idx in range(int(height)):
+		for idx2 in range(int(width)):
+			location = (idx2 * pixel_size, idx * pixel_size, pixel_size, pixel_size)
+			pygame.draw.rect(screen, colour_dictionary[board[idx][idx2]], location)
+
 
 def create_board():
 	global board
@@ -42,10 +48,14 @@ def create_board():
 
 	row = []
 	for i in range(int(x)):
-		row.append(0)
+		row.append(1)
 
 	for j in range(int(y)):
 		board.append(row.copy())
+
+	board[5][5] = 0
+	pprint.pprint(board)
+
 
 create_board()
 display()
