@@ -6,7 +6,7 @@ pixel_size = 40
 resolution = [pixel_size * 10, pixel_size * 20]
 
 screen = pygame.display.set_mode(resolution)
-colour_dictionary = {0: (0, 0, 0), 1: (255, 255, 255)}
+colour_dictionary = {0: (35, 39, 42), 1: (255, 255, 255)}
 
 def display():
 	running = True
@@ -16,16 +16,16 @@ def display():
 
 		# Key inputs
 		for event in pygame.event.get():
-				if event.type == pygame.QUIT:
-					running = False
+			if event.type == pygame.QUIT:
+				running = False
 
-				if event.type == pygame.KEYDOWN:
-					if event.key == pygame.K_a:
-						update_shape(LEFT)
-					if event.key == pygame.K_d:
-						update_shape(RIGHT)
+			if event.type == pygame.KEYDOWN:
+				if event.key == pygame.K_a:
+					update_shape(LEFT)
+				if event.key == pygame.K_d:
+					update_shape(RIGHT)
 
-					# Add rotation here later
+				# Add rotation here later
 
 
 
@@ -48,12 +48,11 @@ def create_board():
 
 	row = []
 	for i in range(int(x)):
-		row.append(1)
+		row.append(0)
 
 	for j in range(int(y)):
 		board.append(row.copy())
 
-	board[5][5] = 0
 	pprint.pprint(board)
 
 
