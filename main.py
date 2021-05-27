@@ -1,6 +1,6 @@
 import pygame
 import pprint
-from shapes import Shapes
+from shapes import shape_mani, i_shape
 
 pixel_size = 40
 resolution = [pixel_size * 10, pixel_size * 20]
@@ -9,10 +9,24 @@ screen = pygame.display.set_mode(resolution)
 colour_dictionary = {0: (35, 39, 42), 1: (255, 255, 255)}
 
 def display():
+	global shape
+
 	running = True
+	count = 0
+	count2 = 0
 	while running:
+		count += 1
 		draw_board()
 		pygame.display.flip()
+
+		if count == 1000:
+			if not controller.is_colliding(board, shape):
+				controller.move_shape_down(board, shape)
+
+			else: 
+				shape = i_shape()
+
+			count = 0
 
 		# Key inputs
 		for event in pygame.event.get():
@@ -21,9 +35,9 @@ def display():
 
 			if event.type == pygame.KEYDOWN:
 				if event.key == pygame.K_a:
-					update_shape(LEFT)
+					controller.move_shape(board, shape, -1)
 				if event.key == pygame.K_d:
-					update_shape(RIGHT)
+					controller.move_shape(board, shape, 1)
 
 				# Add rotation here later
 
@@ -53,8 +67,9 @@ def create_board():
 	for j in range(int(y)):
 		board.append(row.copy())
 
-	pprint.pprint(board)
-
-
 create_board()
+shape = i_shape()
+controller = shape_mani()
+controller.spawn_shape(board, shape)
+
 display()
