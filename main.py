@@ -38,6 +38,8 @@ def display():
 					controller.move_shape(board, shape, -1)
 				if event.key == pygame.K_d:
 					controller.move_shape(board, shape, 1)
+				if event.key == pygame.K_SPACE:
+					controller.rotate_shape(shape)
 
 				# Add rotation here later
 
@@ -66,6 +68,7 @@ def create_board():
 
 	for j in range(int(y)):
 		board.append(row.copy())
+
 
 create_board()
 shape = i_shape()

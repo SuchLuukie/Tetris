@@ -1,4 +1,5 @@
 import pprint
+from itertools import cycle
 
 class shape_mani:
 	def spawn_shape(self, board, obj):
@@ -53,15 +54,16 @@ class shape_mani:
 
 		current = obj.info(obj.location)
 		new = obj.info(new_pos)
-		obj.location = new_pos
 
-		temp = board.copy()
+		pixel = new.copy()
 		for pos in current:
-			temp[pos[0]][pos[1]] = 0
+			if pos in pixel:
+				pixel.remove(pos)
 
-		for pos in new:
-			if temp[pos[0]][pos[1]] != 0:
-				return
+		if board[pixel[0][0]][pixel[0][1]] != 0:
+			return
+
+		obj.location = new_pos
 
 		# Wipe old shape off board and put new in
 		for pos in current:
