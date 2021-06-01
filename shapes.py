@@ -9,19 +9,43 @@ class shape_mani:
 			board[pos[0]][pos[1]] = obj.color
 
 
+	def update_shape(self, board, obj, old, new):
+		# Wipe old shape off board and put new in
+		for pos in old:
+			board[pos[0]][pos[1]] = 0
+
+		for pos in new:
+			board[pos[0]][pos[1]] = obj.color
+
+	# WHY NOT WORKING
+	def rotate_shape(self, board, obj):
+		old = obj.info(obj.location)
+		idx = obj.shape
+		length = len(obj.rotations) - 1
+
+		if idx == length:
+			idx = 0
+
+		else:
+			idx += 1
+
+		print(idx)
+		obj.shape = idx
+		self.update_shape(board, obj, old, obj.info(obj.location))
+
+
+
 	def move_shape_down(self, board, obj):
+		if self.is_colliding(board, obj):
+			return
+
 		new_pos = [obj.location[0] + 1, obj.location[1]]
 
 		current = obj.info(obj.location)
 		new = obj.info(new_pos)
 		obj.location = new_pos
 
-		# Wipe old shape off board and put new in
-		for pos in current:
-			board[pos[0]][pos[1]] = 0
-
-		for pos in new:
-			board[pos[0]][pos[1]] = obj.color
+		self.update_shape(board, obj, current, new)
 
 
 	def is_colliding(self, board, obj):
@@ -64,13 +88,7 @@ class shape_mani:
 			return
 
 		obj.location = new_pos
-
-		# Wipe old shape off board and put new in
-		for pos in current:
-			board[pos[0]][pos[1]] = 0
-
-		for pos in new:
-			board[pos[0]][pos[1]] = obj.color
+		self.update_shape(board, obj, current, new)
 
 
 class i_shape:

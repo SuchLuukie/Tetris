@@ -38,8 +38,10 @@ def display():
 					controller.move_shape(board, shape, -1)
 				if event.key == pygame.K_d:
 					controller.move_shape(board, shape, 1)
+				if event.key == pygame.K_s:
+					controller.move_shape_down(board, shape)
 				if event.key == pygame.K_SPACE:
-					controller.rotate_shape(shape)
+					controller.rotate_shape(board, shape)
 
 				# Add rotation here later
 
