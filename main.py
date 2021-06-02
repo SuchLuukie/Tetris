@@ -20,7 +20,7 @@ def display():
 		pygame.display.flip()
 
 		if count == 1000:
-			if not controller.is_colliding(board, shape):
+			if shape.active:
 				controller.move_shape_down(board, shape)
 
 			else: 
