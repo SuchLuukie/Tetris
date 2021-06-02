@@ -33,8 +33,6 @@ def display():
 
 		if count == 1000:
 			if shape.active:
-				pprint.pprint(board)
-				print()
 				controller.move_shape_down(board, shape)
 
 			else: 
@@ -58,7 +56,16 @@ def display():
 					controller.move_shape(board, shape, 1)
 				if event.key == pygame.K_s:
 					count = 0
-					controller.move_shape_down(board, shape)
+					if shape.active:
+						controller.move_shape_down(board, shape)
+
+					else: 
+						check_lines(board)
+						shape = random.choice(all_shapes)()
+
+						if controller.check_game_over(board, shape):
+							running = False
+
 				if event.key == pygame.K_SPACE:
 					controller.rotate_shape(board, shape)
 
@@ -93,7 +100,7 @@ def remove_lines(board, full_lines):
 	
 	for line in full_lines:
 		board.pop(line)
-		board.insert(0, empty_row)
+		board.insert(0, empty_row.copy())
 		score += 400		
 
 	print(score)
