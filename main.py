@@ -12,7 +12,6 @@ score_offset = 80
 resolution = [pixel_size * 10, (pixel_size * 20) + score_offset]
 score = 0
 
-
 screen = pygame.display.set_mode(resolution)
 colour_dictionary = {
 	0: (35, 39, 42), 
@@ -42,9 +41,7 @@ def display():
 		draw_score()
 		pygame.display.flip()
 
-		
-
-		if frames == 600:
+		if frames == 800:
 			if shape.active:
 				controller.move_shape_down(board, shape)
 
@@ -105,8 +102,9 @@ def draw_board():
 	height = (resolution[1] - score_offset) / pixel_size
 	for idx in range(int(height)):
 		for idx2 in range(int(width)):
-			location = (idx2 * pixel_size, (idx * pixel_size) + score_offset, pixel_size, pixel_size)
-			pygame.draw.rect(screen, colour_dictionary[board[idx][idx2]], location)
+			if board[idx][idx2] != 0:
+				location = (idx2 * pixel_size, (idx * pixel_size) + score_offset, pixel_size, pixel_size)
+				pygame.draw.rect(screen, colour_dictionary[board[idx][idx2]], location)
 
 
 def create_board():
