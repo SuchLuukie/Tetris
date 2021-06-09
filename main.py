@@ -72,7 +72,8 @@ def display():
 						controller.move_shape(board, shape, 1)
 
 				if event.key == pygame.K_SPACE:
-					controller.rotate_shape(board, shape)
+					if not pause:
+						controller.rotate_shape(board, shape)
 
 				if event.key == pygame.K_s:
 					frames = 0
