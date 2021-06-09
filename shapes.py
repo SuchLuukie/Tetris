@@ -6,15 +6,16 @@ class shape_mani:
 		shape = obj.info(obj.location)
 
 		for pos in shape:
-			if not pos[0] < 0 and not pos[1] < 0:
+			if pos[0] >= 0 and pos[1] >= 0:
 				board[pos[0]][pos[1]] = obj.color
 
 	def check_game_over(self, board, obj):
 		new = obj.info(obj.location)
 
 		for pos in new:
-			if board[pos[0]][pos[1]] != 0:
-				return True
+			if pos[0] >= 0 and pos[1] >= 0:
+				if board[pos[0]][pos[1]] != 0:
+					return True
 
 		return False
 
@@ -26,10 +27,14 @@ class shape_mani:
 				board[pos[0]][pos[1]] = 0
 
 		for pos in new:
-			board[pos[0]][pos[1]] = obj.color
+			if pos[0] >= 0 and pos[1] >= 0:
+				board[pos[0]][pos[1]] = obj.color
 
 
 	def rotate_shape(self, board, obj):
+		if not obj.active:
+			return
+			
 		before = obj.shape
 
 		old = obj.info(obj.location)
@@ -106,6 +111,9 @@ class shape_mani:
 	def move_shape(self, board, obj, direction):
 		current = obj.info(obj.location)
 
+		if not obj.active: 
+			return
+
 		new_pos = [obj.location[0], obj.location[1] + direction]
 		if self.is_colliding(board, obj, new_pos):
 			return
@@ -122,7 +130,7 @@ class shape_mani:
 class i_shape:
 	def __init__(self):
 		self.active = True
-		self.location = [1, 5]
+		self.location = [-1, 5]
 		self.color = 1
 		self.shape = 0
 
@@ -141,7 +149,7 @@ class i_shape:
 class t_shape:
 	def __init__(self):
 		self.active = True
-		self.location = [1, 5]
+		self.location = [-1, 5]
 		self.color = 2
 		self.shape = 0
 
@@ -162,7 +170,7 @@ class t_shape:
 class j_shape:
 	def __init__(self):
 		self.active = True
-		self.location = [1, 5]
+		self.location = [-1, 5]
 		self.color = 3
 		self.shape = 0
 
@@ -182,7 +190,7 @@ class j_shape:
 class l_shape:
 	def __init__(self):
 		self.active = True
-		self.location = [1, 5]
+		self.location = [-1, 5]
 		self.color = 4
 		self.shape = 0
 
@@ -202,7 +210,7 @@ class l_shape:
 class o_shape:
 	def __init__(self):
 		self.active = True
-		self.location = [1, 5]
+		self.location = [-1, 5]
 		self.color = 5
 		self.shape = 0
 
@@ -219,7 +227,7 @@ class o_shape:
 class s_shape:
 	def __init__(self):
 		self.active = True
-		self.location = [1, 5]
+		self.location = [-1, 5]
 		self.color = 6
 		self.shape = 0
 
@@ -237,7 +245,7 @@ class s_shape:
 class z_shape:
 	def __init__(self):
 		self.active = True
-		self.location = [1, 5]
+		self.location = [-1, 5]
 		self.color = 7
 		self.shape = 0
 
