@@ -1,5 +1,5 @@
 # Tetris
-Making tetris in Pygame
+Tetris in Python with Pygame
 
 
 # Preview
